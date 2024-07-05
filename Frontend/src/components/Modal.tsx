@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length + images.length > 5) {
-        setError("You can only upload up to 5 images.");
+        setError("You've reached the image limit.");
         return;
       }
       const validFiles = acceptedFiles.filter((file) => {
@@ -75,8 +75,8 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-[#0A0A0A] bg-opacity-80 flex items-center justify-center z-50 ">
-      <div className="bg-white p-6 rounded-lg shadow-lg relative w-[576px]">
+    <div className="fixed inset-0 bg-[#0A0A0A] bg-opacity-80 flex items-center justify-center z-50 xs:p-4  ">
+      <div className="bg-white p-6 rounded-lg shadow-lg relative w-[576px] h-[680px]">
         <p>Upload image(s)</p>
         <p>You may upload up to 5 images</p>
         <button
@@ -88,10 +88,10 @@ const Modal: React.FC<ModalProps> = ({
 
         <div
           {...getRootProps()}
-          className="dropzone p-6 border-2 bg-[#E5E5E5] border-gray-300 rounded-md text-center cursor-pointer"
+          className="dropzone p-6 border-2 bg-[#FAFAFA] border-gray-300 rounded-md text-center cursor-pointer"
         >
           <input {...getInputProps()} />
-          <div className="flex  flex-col items-center justify-center bg-[#E5E5E5]">
+          <div className="flex  flex-col items-center justify-center bg-[#FAFAFA]">
             <img src={download} alt="download" className="" />
             <p className="text-gray-600">Click or drag and drop to upload</p>
             <p>PNG, or JPG (Max 5MB)</p>
@@ -99,9 +99,9 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {images.length > 0 && (
-          <div className="image-preview flex-wrap mt-4 flex flex-col">
+          <div className="image-preview flex-wrap mt-2 flex flex-col">
             {images.map((image, index) => (
-              <div key={index} className="image-thumbnail relative m-2 ">
+              <div key={index} className="image-thumbnail relative ">
                 <img
                   src={URL.createObjectURL(image)}
                   alt="thumbnail"
@@ -122,7 +122,7 @@ const Modal: React.FC<ModalProps> = ({
         )}
 
         {selectedImage && (
-          <div className="image-cropper mt-4">
+          <div className="image-cropper">
             <Cropper
               src={selectedImage}
               className="cropper h-80 w-full"

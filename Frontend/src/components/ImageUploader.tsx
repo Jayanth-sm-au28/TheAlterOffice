@@ -34,24 +34,20 @@ const ImageUploader = () => {
       formData.append("images", image);
     });
     try {
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post(`/api/users/${userId}/avatar`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data'
         },
         onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           setUploadProgress(percentCompleted);
-        },
+        }
       });
       setUploadProgress(100);
-      console.log("Upload success", response.data);
+      console.log('Upload success', response.data);
       // Handle success response
     } catch (error) {
-      setError(
-        "An error occurred during the upload. Please check your network connection and try again."
-      );
+      setError('An error occurred during the upload. Please check your network connection and try again.');
       setUploadProgress(0);
     }
   };
